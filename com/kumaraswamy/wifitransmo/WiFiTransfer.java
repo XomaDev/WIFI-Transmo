@@ -20,7 +20,7 @@ import java.util.List;
         category = ComponentCategory.EXTENSION,
         description = "Extension made to send data from one device to another using Wi-Fi Peer to Peer connection or also Wi-Fi Direct. An open-source extension developed by Kumaraswamy B.G",
         nonVisible = true,
-        iconName = "aiwebres/icon.png")
+        iconName = "https://i.imgur.com/oiX8C0f.png")
 
 @SimpleObject(external = true)
 
