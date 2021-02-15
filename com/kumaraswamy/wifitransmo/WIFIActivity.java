@@ -283,12 +283,12 @@ public class WIFIActivity implements WifiP2pManager.ActionListener {
     private final WifiP2pManager.ActionListener connectionStatusListener = new WifiP2pManager.ActionListener() {
         @Override
         public void onSuccess() {
-            Toast.makeText(activity, "Request sent", Toast.LENGTH_SHORT).show();
+            requestStateChangedListener.RequestStateChanged(-1);
         }
 
         @Override
         public void onFailure(int errorCode) {
-            Toast.makeText(activity, "Failed to connect, error code: " + errorCode, Toast.LENGTH_SHORT).show();
+            requestStateChangedListener.RequestStateChanged(errorCode);
         }
     };
 
@@ -307,11 +307,11 @@ public class WIFIActivity implements WifiP2pManager.ActionListener {
 
     @Override
     public void onSuccess() {
-        requestStateChangedListener.RequestStateChanged(-1);
+        // TODO NOTHING
     }
 
     @Override
     public void onFailure(int errorCode) {
-        requestStateChangedListener.RequestStateChanged(errorCode);
+        // TODO NOTHING
     }
 }
