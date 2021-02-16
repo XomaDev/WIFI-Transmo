@@ -1,6 +1,7 @@
 package com.kumaraswamy.wifitransmo;
 
 import android.app.Activity;
+import android.os.Looper;
 import com.google.appinventor.components.annotations.*;
 import com.google.appinventor.components.common.ComponentCategory;
 import com.google.appinventor.components.common.PropertyTypeConstants;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @UsesPermissions(permissionNames = "android.permission.ACCESS_WIFI_STATE, android.permission.CHANGE_WIFI_STATE, android.permission.INTERNET, android.permission.ACCESS_NETWORK_STATE, android.permission.ACCESS_FINE_LOCATION, android.permission.ACCESS_COARSE_LOCATION, android.permission.WRITE_EXTERNAL_STORAGE, android.permission.READ_EXTERNAL_STORAGE")
 @DesignerComponent(
-        versionName = "1.0.0 Transmo",
-        version = 1,
+        versionName = "1.0.1 Transmo",
+        version = 2,
         category = ComponentCategory.EXTENSION,
         description = "Extension made to send data from one device to another using Wi-Fi Peer to Peer connection or also Wi-Fi Direct. An open-source extension developed by Kumaraswamy B.G",
         nonVisible = true,
@@ -188,37 +189,72 @@ public class WiFiTransfer extends AndroidNonvisibleComponent implements Activity
 
     @Override
     public void DiscoveryStarted() {
-        StartedDiscovery();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                StartedDiscovery();
+            }
+        });
     }
 
     @Override
-    public void DiscoveryFailed(int errorCode) {
-        StartDiscoveryFailed(errorCode);
+    public void DiscoveryFailed(final int errorCode) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                StartDiscoveryFailed(errorCode);
+            }
+        });
     }
 
     @Override
-    public void DeviceConnected(boolean isHost) {
-        StopDiscovery();
-        Connected(isHost);
+    public void DeviceConnected(final boolean isHost) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                StopDiscovery();
+                Connected(isHost);
+            }
+        });
     }
 
     @Override
-    public void NewMessage(String message, boolean isFile) {
-        DataReceived(message, isFile);
+    public void NewMessage(final String message, final boolean isFile) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DataReceived(message, isFile);
+            }
+        });
     }
 
     @Override
     public void DeviceDisconnected() {
-        Disconnected();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Disconnected();
+            }
+        });
     }
 
     @Override
-    public void SendData(int length) {
-        SentData(length);
+    public void SendData(final int length) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                SentData(length);
+            }
+        });
     }
 
     @Override
-    public void RequestStateChanged(int code) {
-        ConnectionRequestResult(code);
+    public void RequestStateChanged(final int code) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ConnectionRequestResult(code);
+            }
+        });
     }
 }
